@@ -1,4 +1,4 @@
-# Homebrew Tap for TrailMark
+# 🔖 Homebrew Tap for TrailMark
 
 **Read what your AI writes. Write what it reads.**
 
