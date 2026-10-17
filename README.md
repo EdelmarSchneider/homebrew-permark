@@ -1,18 +1,21 @@
-# 🔖 Homebrew Tap for TrailMark
+# 🔖 Homebrew Tap for PerMark
 
-**Read what your AI writes. Write what it reads.**
-
-[TrailMark](https://github.com/EdelmarSchneider/trailmark) is the desktop Markdown IDE for the post-AI engineering workflow—where developers and AI agents plan, mature ideas, formalize specifications, and steer development in Markdown—while reading and editing any `.md` file as a clean page.
+[PerMark](https://github.com/EdelmarSchneider/permark) (formerly TrailMark) is a free, open-source Markdown app: read what your AI writes, write what it reads. It opens any `.md` file as a clean page, keeps notes that save themselves, and turns a project folder into an IDE where you follow, review and steer what your AI agents write.
 
 ## Install
 
 ```bash
-brew tap EdelmarSchneider/trailmark
-brew install --cask trailmark
+brew tap EdelmarSchneider/permark
+brew install --cask permark
 ```
 
-## Upgrade
+## Update
 
 ```bash
-brew upgrade --cask trailmark
+brew upgrade --cask permark
 ```
+
+## Coming from TrailMark?
+
+TrailMark was renamed to PerMark, and this tap was renamed with it. `brew update` moves an installed `trailmark` cask to
+`permark`. Your projects, settings and notes carry over.
