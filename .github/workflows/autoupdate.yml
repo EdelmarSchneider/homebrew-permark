@@ -1,0 +1,57 @@
+name: Auto-Update Homebrew Cask
+
+on:
+  schedule:
+    - cron: "20 */6 * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [release-published]
+
+permissions:
+  contents: write
+
+jobs:
+  autoupdate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check latest TrailMark release and update Cask
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          CURRENT_VER=$(grep -oE 'version "[^"]+"' Casks/trailmark.rb | head -n 1 | cut -d'"' -f2)
+          LATEST_TAG=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/repos/EdelmarSchneider/trailmark/releases/latest | jq -r '.tag_name')
+          LATEST_VER="${LATEST_TAG#v}"
+
+          echo "Current version: $CURRENT_VER"
+          echo "Latest version:  $LATEST_VER"
+
+          if [ -z "$LATEST_VER" ] || [ "$LATEST_VER" = "null" ]; then
+            echo "No release tag found."
+            exit 0
+          fi
+
+          if [ "$CURRENT_VER" = "$LATEST_VER" ]; then
+            echo "Already up to date."
+            exit 0
+          fi
+
+          ASSET_URL="https://github.com/EdelmarSchneider/trailmark/releases/download/v${LATEST_VER}/TrailMark_${LATEST_VER}_universal.dmg"
+          echo "Downloading $ASSET_URL ..."
+          curl -fsSL "$ASSET_URL" -o /tmp/TrailMark.dmg
+          NEW_HASH=$(sha256sum /tmp/TrailMark.dmg | awk '{print $1}')
+          rm -f /tmp/TrailMark.dmg
+
+          echo "New SHA256: $NEW_HASH"
+
+          sed -i -E "s/version \"[^\"]+\"/version \"${LATEST_VER}\"/" Casks/trailmark.rb
+          sed -i -E "s/sha256 \"[^\"]+\"/sha256 \"${NEW_HASH}\"/" Casks/trailmark.rb
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Casks/trailmark.rb
+          git commit -m "trailmark: Update Cask to ${LATEST_VER}"
+          git push
