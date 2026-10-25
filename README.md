@@ -1,6 +1,6 @@
 # 🔖 Homebrew Tap for PerMark
 
-[PerMark](https://github.com/EdelmarSchneider/permark) (formerly TrailMark) is a free, open-source Markdown app: read what your AI writes, write what it reads. It opens any `.md` file as a clean page, keeps notes that save themselves, and turns a project folder into an IDE where you follow, review and steer what your AI agents write.
+[PerMark](https://github.com/EdelmarSchneider/permark) is a free, open-source Markdown app to read and review what your AI agents write, and steer the work through its documents. It opens any `.md` file as a clean page, with tables, diagrams and math, and keeps notes that save themselves.
 
 ## Install
 
