@@ -1,6 +1,6 @@
 cask "permark" do
-  version "0.13.0"
-  sha256 "dbb30e748d2b5576387110c3dd39b61a89853cc3e33d80ec5163101c1c08fbd1"
+  version "0.14.0"
+  sha256 "387c87f57d1bd8fe4fda909cb57da262f48dbdabbc751583348aa7bfe6e701d2"
 
   url "https://github.com/EdelmarSchneider/permark/releases/download/v#{version}/PerMark_#{version}_universal.dmg"
   name "PerMark"
